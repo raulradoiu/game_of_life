@@ -107,7 +107,7 @@ void afisare(FILE *fisier1,char **matrice, int n, int m, int k){
 
     for(int nr_gen=0; nr_gen<=k; nr_gen++) {
          if(nr_gen > 0) {
-            for(int i=0; i<n; i++) {
+            for(int i=0; i< n; i++) {
                 for(int j=0; j<m;j++) {
                     fprintf(fisier1, "%c", matrice[i][j]);
                 }
