@@ -89,7 +89,7 @@ void generatii(int n, int m, char **matrice){
         }
     }
     for (int i=0; i<n; i++) {
-        for (int j=0; j<m; j++) {
+        for (int j=0; j< m; j++) {
             matrice[i][j]=mat1[i][j];
         }
     }
