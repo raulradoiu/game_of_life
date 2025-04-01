@@ -105,7 +105,7 @@ void afisare(FILE *fisier1,char **matrice, int n, int m, int k){
         exit(1);
     }
 
-    for(int nr_gen=0; nr_gen<=k; nr_gen++) {
+    for(int nr_gen=0; nr_gen<= k; nr_gen++) {
          if(nr_gen > 0) {
             for(int i=0; i< n; i++) {
                 for(int j=0; j<m;j++) {
