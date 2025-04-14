@@ -60,14 +60,14 @@ int numar_vecini(int i, int j, int n, int m, char **game) {
 }
 
 void generatii(int n, int m, char **matrice) {
-    char **mat1 = (char **)malloc(n * sizeof(char *));
+    char **mat1 =(char **)malloc(n * sizeof(char *));
     if(mat1 == NULL) {
         printf("Memorie insuficienta pentru noua matrice!\n");
         exit(1);
     }
 
     for(int i=0; i<n; i++) {
-        mat1[i] = (char *)malloc(m * sizeof(char));
+        mat1[i] =(char *)malloc(m * sizeof(char));
         if(mat1[i] == NULL) {
             printf("Memorie insuficienta pentru randul %d al noii matrice!\n", i);
             exit(1);
