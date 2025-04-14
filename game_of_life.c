@@ -76,7 +76,7 @@ void generatii(int n, int m, char **matrice) {
 
     for(int i=0; i<n; i++) {
         for(int j=0; j<m; j++) {
-            int nr_vecini = numar_vecini(i, j, n, m, matrice);
+            int nr_vecini=numar_vecini(i, j, n, m, matrice);
             
             if(matrice[i][j]==VIE) {
                 if(nr_vecini<2 || nr_vecini>3) {
