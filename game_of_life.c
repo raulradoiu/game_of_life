@@ -13,14 +13,14 @@ void citire(FILE *fisier1, FILE *fisier2, char ***matrice, int *nr_task, int *n,
     }
     fscanf(fisier1, "%d %d %d %d", nr_task, n, m, k);
 
-    *matrice = (char **)malloc(*n * sizeof(char *));
+    *matrice = (char **)malloc(*n * sizeof(char *));//vector de pointeri pt liniile matricei
     if(*matrice == NULL) {
         printf("Memorie insuficienta\n");
         exit(1);
     }
 
     for(int i=0; i<*n; i++) {
-        (*matrice)[i] = (char *)malloc(*m * sizeof(char));
+        (*matrice)[i] = (char *)malloc(*m * sizeof(char)); //aloca coloanele
         if((*matrice)[i] == NULL) {
             printf("Memorie insuficienta\n");
             exit(1);
@@ -32,7 +32,7 @@ void citire(FILE *fisier1, FILE *fisier2, char ***matrice, int *nr_task, int *n,
             fscanf(fisier1, " %c", &((*matrice)[i][j])); 
         }
     }
-
+    //afisare matrice initiala pt task 1
     if (*nr_task ==1) {
         for(int i=0; i<*n; i++) {
             for(int j=0; j< *m; j++) {
@@ -52,7 +52,7 @@ int numar_vecini(int i, int j, int n, int m, char **game) {
     for(int d = 0; d < 8; d++) {
         x = i + dx[d];
         y = j + dy[d];
-        if(x>=0 && x<n && y>=0 && y<m && game[x][y] == VIE) {
+        if(x>=0 && x<n && y>=0 && y<m && game[x][y] == VIE) {//daca vecinul este in interiorul grilei si e viu
             nr++;
         }
     }
@@ -170,13 +170,14 @@ void task2(FILE *fisier2, char **matrice, int n, int m, int k) {
     for (int i=0; i<n; i++) {
         mat_veche[i] = (char *)malloc(m * sizeof(char));
     }
-
+    //initializeaza copia cu valorile curente
     for(int i=0; i<n; i++)
         for(int j=0; j<m; j++) 
             mat_veche[i][j] = matrice[i][j];
 
+    //aplica regulile pt fiecare gen
     for (int gen=1; gen<=k; gen++) {
-        generatii(n, m, matrice);//aplica regulile
+        generatii(n, m, matrice);
 
         //comp matricea veche cu cea noua si insereaza coordonatele schimbate
         Nod *lista_dif = NULL;
@@ -253,6 +254,7 @@ void bonus(Nod *top, int n, int m, char **matrice) {
 
 
 // task 3
+//arbore binar al generatiilor
 typedef struct Arbore {
     char **matrice;//starea grilei la acel moment
     int generatie;
@@ -281,7 +283,7 @@ char **generatii_B(int n, int m, char **matrice) {
     }
     return noua;
 }
-
+//reurneaza nodul construit
 Arbore *construire(int n, int m, int gen_curenta, int k, char **matrice) {
     if(gen_curenta > k) return NULL;
 
@@ -293,7 +295,7 @@ Arbore *construire(int n, int m, int gen_curenta, int k, char **matrice) {
     char **mat2 = copie_matrice_noua(n, m, matrice);//se aplica regulile clasice
     generatii(n, m, mat2);
 
-    //construieste arborele
+    //construieste arborele recursiv
     nod->left = construire(n, m, gen_curenta + 1, k, mat1);
     nod->right = construire(n, m, gen_curenta + 1, k, mat2);
 
@@ -330,15 +332,16 @@ void task3(FILE *fisier, char **matrice, int n, int m, int k) {
 }
 
 //TASK 4 
-
+//structura pt celule vii
 typedef struct {
     int linie, coloana;
-} Celula;//pt celulele vii
+} Celula;
 
+//vectorii de directie
 int dx[]={-1,-1,-1,0,0,1,1,1};
 int dy[]={-1,0,1,-1,1,-1,0,1};
 
-// graful
+// variabile globale 
 Celula celule[MAX];//vector cu celule vii
 int adiacenta[MAX][MAX];//1 daca celula i este vecina cu j
 int nr_celule;//nr celule vii
