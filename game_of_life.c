@@ -213,6 +213,45 @@ void task2(FILE *fisier2, char **matrice, int n, int m, int k) {
     free(mat_veche);
 }
 
+//bonus
+typedef struct Celula {
+    int l, c;
+    struct Celula *next;
+} Celula;
+
+typedef struct Nod {
+    Celula *celule;
+    struct Nod *next;
+} Nod;
+
+// Functie pentru scrierea matricei in fisier
+void scriu_bonus(FILE *f, int n, int m, char **matrice) {
+    for (int i=0; i<n; i++) {
+        for (int j=0; j<m; j++)
+            fputc(matrice[i][j], f);
+        fputc('\n', f);
+    }
+}
+
+// Functie bonus care inverseaza modificarile din stiva
+void bonus(Nod *top, int n, int m, char **matrice) {
+    while (top) {
+        Celula *cel = top->celule;
+        while (cel) {
+            int i = cel->l, j = cel->c;
+            if (i >= 0 && i < n && j >= 0 && j < m) {
+                if (matrice[i][j] == VIE)  // VIE
+                    matrice[i][j] = MOARTA;  // devine MOARTA
+                else
+                    matrice[i][j] = VIE;  // altfel devine VIE
+            }
+            cel = cel->next;
+        }
+        top = top->next;
+    }
+}
+
+
 // task 3
 typedef struct Arbore {
     char **matrice;//starea grilei la acel moment
